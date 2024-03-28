@@ -1,0 +1,5 @@
+{
+  "import": [
+    "yoorkin/trie/lib"
+  ]
+}
