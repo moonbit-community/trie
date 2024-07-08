@@ -1,33 +1,31 @@
-struct Trie[a] {
-  value : a?
-  forks : @immut/sorted_map.Map[Char, Trie[a]]
+struct Trie[A] {
+  value : A?
+  forks : @immut/sorted_map.Map[Char, Trie[A]]
 }
 
-pub fn lookup[a](self : Trie[a], path : String) -> a? {
-  let xs = string_to_list(path)
-  loop xs, self {
-    List::Nil, trie => trie.value
-    Cons(x, xs), trie =>
-      match trie.forks.lookup(x) {
+pub fn lookup[A](self : Trie[A], path : String) -> A? {
+  loop path.to_array()[..], self {
+    [], trie => trie.value
+    [x, .. as xs], trie =>
+      match trie.forks[x] {
         None => None
         Some(subtree) => continue xs, subtree
       }
   }
 }
 
-pub fn insert[a](self : Trie[a], path : String, value : a) -> Trie[a] {
-  let xs = string_to_list(path)
+pub fn insert[A](self : Trie[A], path : String, value : A) -> Trie[A] {
   fn aux {
-    List::Nil, trie => Trie::{ ..trie, value: Some(value) }
-    Cons(x, xs), trie => {
-      let subtree = trie.forks.lookup(x).or(
+    ([] : ArrayView[Char]), trie => Trie::{ ..trie, value: Some(value) }
+    [x, .. as xs], trie => {
+      let subtree = trie.forks[x].or(
         { value: None, forks: @immut/sorted_map.empty() },
       )
       { ..trie, forks: trie.forks.insert(x, aux(xs, subtree)) }
     }
   }
 
-  aux(xs, self)
+  aux(path.to_array()[..], self)
 }
 
 pub fn empty[a]() -> Trie[a] {
@@ -46,15 +44,9 @@ pub fn Trie::from_array[a](data : Array[(String, a)]) -> Trie[a] {
   }
 }
 
-fn string_to_list(s : String) -> List[Char] {
-  loop 0, List::Nil {
-    i, ls => if i == s.length() { ls } else { continue i + 1, Cons(s[i], ls) }
-  }
-}
-
 test {
   let trie = Trie::[("--search", "search"), ("-s", "s"), ("--switch", "switch")]
-  @assertion.assert_eq(trie.lookup("--search"), Some("search"))?
-  @assertion.assert_eq(trie.lookup("-s"), Some("s"))?
-  @assertion.assert_eq(trie.lookup("--switch"), Some("switch"))?
+  @test.eq(trie.lookup("--search"), Some("search"))!
+  @test.eq(trie.lookup("-s"), Some("s"))!
+  @test.eq(trie.lookup("--switch"), Some("switch"))!
 }
