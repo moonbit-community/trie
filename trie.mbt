@@ -24,7 +24,7 @@ pub fn add[A](self : T[A], path : String, value : A) -> T[A] {
     ([] : ArrayView[Char]), trie => T::{ ..trie, value: Some(value) }
     [x, .. as xs], trie => {
       let subtree = trie.forks[x].or(
-        { value: None, forks: @immut/sorted_map.empty() },
+        { value: None, forks: @immut/sorted_map.new() },
       )
       { ..trie, forks: trie.forks.add(x, aux(xs, subtree)) }
     }
@@ -34,7 +34,7 @@ pub fn add[A](self : T[A], path : String, value : A) -> T[A] {
 }
 
 pub fn empty[a]() -> T[a] {
-  T::{ value: None, forks: @immut/sorted_map.empty() }
+  T::{ value: None, forks: @immut/sorted_map.new() }
 }
 
 pub fn T::of[A](data : FixedArray[(String, A)]) -> T[A] {
