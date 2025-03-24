@@ -16,7 +16,8 @@ pub fn lookup[A](self : T[A], path : String) -> A? {
   }
 }
 
-///| @alert deprecated "use `add` instead"
+///| 
+#deprecated("use `add` instead")
 pub fn insert[A](self : T[A], path : String, value : A) -> T[A] {
   self.add(path, value)
 }

@@ -5,7 +5,8 @@ fn add[A](T[A], String, A) -> T[A]
 
 fn empty[a]() -> T[a]
 
-fn insert[A](T[A], String, A) -> T[A] //deprecated
+#deprecated
+fn insert[A](T[A], String, A) -> T[A]
 
 fn lookup[A](T[A], String) -> A?
 
@@ -14,7 +15,8 @@ type T[A]
 impl T {
   add[A](Self[A], String, A) -> Self[A]
   from_array[A](Array[(String, A)]) -> Self[A]
-  insert[A](Self[A], String, A) -> Self[A] //deprecated
+  #deprecated
+  insert[A](Self[A], String, A) -> Self[A]
   lookup[A](Self[A], String) -> A?
   of[A](FixedArray[(String, A)]) -> Self[A]
 }
