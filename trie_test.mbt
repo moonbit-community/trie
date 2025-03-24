@@ -1,5 +1,5 @@
 test {
-  let trie = @trie.of(
+  let trie = @trie.T::of(
     [("--search", "search"), ("-s", "s"), ("--switch", "switch")],
   )
   assert_eq!(trie.lookup("--search"), Some("search"))
