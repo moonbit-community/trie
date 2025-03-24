@@ -6,7 +6,7 @@ struct T[A] {
 
 ///|
 pub fn lookup[A](self : T[A], path : String) -> A? {
-  loop path[:], self {
+  loop path.view(), self {
     [], trie => trie.value
     [x, .. xs], trie =>
       match trie.forks[x] {
@@ -35,7 +35,7 @@ pub fn add[A](self : T[A], path : String, value : A) -> T[A] {
     }
   }
 
-  aux(path[:], self)
+  aux(path.view(), self)
 }
 
 ///|
