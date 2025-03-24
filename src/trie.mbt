@@ -6,7 +6,7 @@ struct T[A] {
 
 ///|
 pub fn lookup[A](self : T[A], path : String) -> A? {
-  loop path.to_array()[:], self {
+  loop path[:], self {
     [], trie => trie.value
     [x, .. xs], trie =>
       match trie.forks[x] {
@@ -24,7 +24,7 @@ pub fn insert[A](self : T[A], path : String, value : A) -> T[A] {
 ///|
 pub fn add[A](self : T[A], path : String, value : A) -> T[A] {
   fn aux {
-    ([] : ArrayView[Char]), trie => T::{ ..trie, value: Some(value) }
+    ([] : @string.View), trie => T::{ ..trie, value: Some(value) }
     [x, .. xs], trie => {
       let subtree = trie.forks[x].or({
         value: None,
@@ -34,7 +34,7 @@ pub fn add[A](self : T[A], path : String, value : A) -> T[A] {
     }
   }
 
-  aux(path.to_array()[:], self)
+  aux(path[:], self)
 }
 
 ///|
