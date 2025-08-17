@@ -1,25 +1,20 @@
-package Yoorkin/trie
+// Generated using `moon info`, DON'T EDIT IT
+package "Yoorkin/trie"
 
 // Values
-fn add[A](T[A], String, A) -> T[A]
+fn[a] empty() -> T[a]
 
-fn empty[a]() -> T[a]
+fn[A] of(FixedArray[(String, A)]) -> T[A]
 
-#deprecated
-fn insert[A](T[A], String, A) -> T[A]
-
-fn lookup[A](T[A], String) -> A?
+// Errors
 
 // Types and methods
 type T[A]
-impl T {
-  add[A](Self[A], String, A) -> Self[A]
-  from_array[A](Array[(String, A)]) -> Self[A]
-  #deprecated
-  insert[A](Self[A], String, A) -> Self[A]
-  lookup[A](Self[A], String) -> A?
-  of[A](FixedArray[(String, A)]) -> Self[A]
-}
+fn[A] T::add(Self[A], String, A) -> Self[A]
+fn[A] T::from_array(Array[(String, A)]) -> Self[A]
+#deprecated
+fn[A] T::insert(Self[A], String, A) -> Self[A]
+fn[A] T::lookup(Self[A], String) -> A?
 
 // Type aliases
 
