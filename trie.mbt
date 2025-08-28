@@ -1,11 +1,14 @@
 ///|
-struct T[A] {
+struct Trie[A] {
   value : A?
-  forks : @immut/sorted_map.T[Char, T[A]]
+  forks : @immut/sorted_map.T[Char, Trie[A]]
 }
 
 ///|
-pub fn[A] lookup(self : T[A], path : String) -> A? {
+pub typealias Trie as T
+
+///|
+pub fn[A] lookup(self : Trie[A], path : String) -> A? {
   loop (path.view(), self) {
     ([], trie) => trie.value
     ([x, .. xs], trie) =>
@@ -18,15 +21,15 @@ pub fn[A] lookup(self : T[A], path : String) -> A? {
 
 ///|
 #deprecated("use `add` instead")
-pub fn[A] insert(self : T[A], path : String, value : A) -> T[A] {
+pub fn[A] insert(self : Trie[A], path : String, value : A) -> Trie[A] {
   self.add(path, value)
 }
 
 ///|
-pub fn[A] add(self : T[A], path : String, value : A) -> T[A] {
+pub fn[A] add(self : Trie[A], path : String, value : A) -> Trie[A] {
   fn aux(xs, trie) {
     match xs {
-      ([] : @string.View) => T::{ ..trie, value: Some(value) }
+      ([] : @string.View) => Trie::{ ..trie, value: Some(value) }
       [x, .. xs] => {
         let subtree = trie.forks
           .get(x)
@@ -40,12 +43,12 @@ pub fn[A] add(self : T[A], path : String, value : A) -> T[A] {
 }
 
 ///|
-pub fn[a] empty() -> T[a] {
-  T::{ value: None, forks: @immut/sorted_map.new() }
+pub fn[a] empty() -> Trie[a] {
+  Trie::{ value: None, forks: @immut/sorted_map.new() }
 }
 
 ///|
-pub fn[A] T::of(data : FixedArray[(String, A)]) -> T[A] {
+pub fn[A] Trie::of(data : FixedArray[(String, A)]) -> Trie[A] {
   loop (0, empty()) {
     (i, trie) =>
       if i == data.length() {
@@ -58,7 +61,7 @@ pub fn[A] T::of(data : FixedArray[(String, A)]) -> T[A] {
 }
 
 ///|
-pub fn[A] T::from_array(data : Array[(String, A)]) -> T[A] {
+pub fn[A] Trie::from_array(data : Array[(String, A)]) -> Trie[A] {
   loop (0, empty()) {
     (i, trie) =>
       if i == data.length() {
