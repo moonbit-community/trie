@@ -1,0 +1,21 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Yoorkin/trie"
+
+// Values
+fn[a] empty() -> T[a]
+
+// Errors
+
+// Types and methods
+type T[A]
+fn[A] T::add(Self[A], String, A) -> Self[A]
+fn[A] T::from_array(Array[(String, A)]) -> Self[A]
+#deprecated
+fn[A] T::insert(Self[A], String, A) -> Self[A]
+fn[A] T::lookup(Self[A], String) -> A?
+fn[A] T::of(FixedArray[(String, A)]) -> Self[A]
+
+// Type aliases
+
+// Traits
+
