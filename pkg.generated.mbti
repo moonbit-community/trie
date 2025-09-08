@@ -2,13 +2,15 @@
 package "Yoorkin/trie"
 
 // Values
-fn[a] empty() -> Trie[a]
+#deprecated
+fn[A] empty() -> Trie[A]
 
 // Errors
 
 // Types and methods
 type Trie[A]
 fn[A] Trie::add(Self[A], String, A) -> Self[A]
+fn[A] Trie::empty() -> Self[A]
 fn[A] Trie::from_array(Array[(String, A)]) -> Self[A]
 #deprecated
 fn[A] Trie::insert(Self[A], String, A) -> Self[A]

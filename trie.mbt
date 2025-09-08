@@ -1,14 +1,14 @@
 ///|
 struct Trie[A] {
   value : A?
-  forks : @immut/sorted_map.T[Char, Trie[A]]
+  forks : @immut/sorted_map.SortedMap[Char, Trie[A]]
 }
 
 ///|
 pub typealias Trie as T
 
 ///|
-pub fn[A] lookup(self : Trie[A], path : String) -> A? {
+pub fn[A] Trie::lookup(self : Self[A], path : String) -> A? {
   loop (path.view(), self) {
     ([], trie) => trie.value
     ([x, .. xs], trie) =>
@@ -21,12 +21,12 @@ pub fn[A] lookup(self : Trie[A], path : String) -> A? {
 
 ///|
 #deprecated("use `add` instead")
-pub fn[A] insert(self : Trie[A], path : String, value : A) -> Trie[A] {
+pub fn[A] Trie::insert(self : Self[A], path : String, value : A) -> Trie[A] {
   self.add(path, value)
 }
 
 ///|
-pub fn[A] add(self : Trie[A], path : String, value : A) -> Trie[A] {
+pub fn[A] Trie::add(self : Self[A], path : String, value : A) -> Trie[A] {
   fn aux(xs, trie) {
     match xs {
       ([] : @string.View) => Trie::{ ..trie, value: Some(value) }
@@ -43,13 +43,19 @@ pub fn[A] add(self : Trie[A], path : String, value : A) -> Trie[A] {
 }
 
 ///|
-pub fn[a] empty() -> Trie[a] {
+#deprecated("Use Trie::empty instead")
+pub fn[A] empty() -> Trie[A] {
+  Trie::{ value: None, forks: @immut/sorted_map.new() }
+}
+
+///|
+pub fn[A] Trie::empty() -> Trie[A] {
   Trie::{ value: None, forks: @immut/sorted_map.new() }
 }
 
 ///|
 pub fn[A] Trie::of(data : FixedArray[(String, A)]) -> Trie[A] {
-  loop (0, empty()) {
+  loop (0, Trie::empty()) {
     (i, trie) =>
       if i == data.length() {
         trie
@@ -62,7 +68,7 @@ pub fn[A] Trie::of(data : FixedArray[(String, A)]) -> Trie[A] {
 
 ///|
 pub fn[A] Trie::from_array(data : Array[(String, A)]) -> Trie[A] {
-  loop (0, empty()) {
+  loop (0, Trie::empty()) {
     (i, trie) =>
       if i == data.length() {
         trie
