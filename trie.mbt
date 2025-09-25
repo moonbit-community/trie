@@ -54,6 +54,7 @@ pub fn[A] Trie::empty() -> Trie[A] {
 }
 
 ///|
+/// Create a trie from `FixedArray`
 pub fn[A] Trie::of(data : FixedArray[(String, A)]) -> Trie[A] {
   loop (0, Trie::empty()) {
     (i, trie) =>
