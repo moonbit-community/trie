@@ -1,11 +1,9 @@
 ///|
+#alias(T)
 struct Trie[A] {
   value : A?
   forks : @immut/sorted_map.SortedMap[Char, Trie[A]]
 }
-
-///|
-pub typealias Trie as T
 
 ///|
 pub fn[A] Trie::lookup(self : Self[A], path : String) -> A? {
@@ -29,7 +27,7 @@ pub fn[A] Trie::insert(self : Self[A], path : String, value : A) -> Trie[A] {
 pub fn[A] Trie::add(self : Self[A], path : String, value : A) -> Trie[A] {
   fn aux(xs, trie) {
     match xs {
-      ([] : @string.View) => Trie::{ ..trie, value: Some(value) }
+      ([] : StringView) => Trie::{ ..trie, value: Some(value) }
       [x, .. xs] => {
         let subtree = trie.forks
           .get(x)
