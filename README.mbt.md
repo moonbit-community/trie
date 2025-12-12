@@ -6,7 +6,10 @@ This implementation provides the basic functionality of a trie, including insert
 # Usage
 
 ```moonbit
-typealias @trie.Trie
+///|
+using @trie {type Trie}
+
+///|
 test {
   let trie = Trie::of([("--search", "search"), ("--switch", "switch")])
   inspect(trie.lookup("--search"), content="Some(\"search\")")
