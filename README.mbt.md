@@ -5,7 +5,7 @@ This implementation provides the basic functionality of a trie, including insert
 
 # Usage
 
-```moonbit
+```moonbit nocheck
 ///|
 using @trie {type Trie}
 
