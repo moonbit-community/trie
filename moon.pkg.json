@@ -1,8 +1,0 @@
-{
-  "import": [
-    {
-      "path": "moonbitlang/core/immut/sorted_map",
-      "alias": "immut/sorted_map"
-    }
-  ]
-}
