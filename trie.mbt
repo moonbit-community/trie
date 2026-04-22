@@ -7,13 +7,15 @@ struct Trie[A] {
 
 ///|
 pub fn[A] Trie::lookup(self : Self[A], path : String) -> A? {
-  loop (path.view(), self) {
-    ([], trie) => trie.value
-    ([x, .. xs], trie) =>
+  for xs = path.view(), trie = self {
+    match xs {
+      [] => break trie.value
+      [x, .. xs] =>
       match trie.forks.get(x) {
-        None => None
-        Some(subtree) => continue (xs, subtree)
+        None => break None
+        Some(subtree) => continue xs, subtree
       }
+    }
   }
 }
 
@@ -54,27 +56,25 @@ pub fn[A] Trie::empty() -> Trie[A] {
 ///|
 /// Create a trie from `FixedArray`
 pub fn[A] Trie::of(data : FixedArray[(String, A)]) -> Trie[A] {
-  loop (0, Trie::empty()) {
-    (i, trie) =>
-      if i == data.length() {
-        trie
-      } else {
-        let (s, v) = data[i]
-        continue (i + 1, trie.add(s, v))
-      }
+  for i = 0, trie = Trie::empty() {
+    if i == data.length() {
+      break trie
+    } else {
+      let (s, v) = data[i]
+      continue i + 1, trie.add(s, v)
+    }
   }
 }
 
 ///|
 /// Create a trie from array.
 pub fn[A] Trie::from_array(data : Array[(String, A)]) -> Trie[A] {
-  loop (0, Trie::empty()) {
-    (i, trie) =>
-      if i == data.length() {
-        trie
-      } else {
-        let (s, v) = data[i]
-        continue (i + 1, trie.add(s, v))
-      }
+  for i = 0, trie = Trie::empty() {
+    if i == data.length() {
+      break trie
+    } else {
+      let (s, v) = data[i]
+      continue i + 1, trie.add(s, v)
+    }
   }
 }
