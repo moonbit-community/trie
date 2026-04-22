@@ -11,10 +11,10 @@ pub fn[A] Trie::lookup(self : Self[A], path : String) -> A? {
     match xs {
       [] => break trie.value
       [x, .. xs] =>
-      match trie.forks.get(x) {
-        None => break None
-        Some(subtree) => continue xs, subtree
-      }
+        match trie.forks.get(x) {
+          None => break None
+          Some(subtree) => continue xs, subtree
+        }
     }
   }
 }
