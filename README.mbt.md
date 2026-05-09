@@ -12,9 +12,9 @@ using @trie {type Trie}
 ///|
 test {
   let trie = Trie::of([("--search", "search"), ("--switch", "switch")])
-  inspect(trie.lookup("--search"), content="Some(\"search\")")
+  @debug.debug_inspect(trie.lookup("--search"), content="Some(\"search\")")
   let trie = trie.add("-s", "s")
-  inspect(trie.lookup("-s"), content="Some(\"s\")")
-  inspect(trie.lookup("--switch"), content="Some(\"switch\")")
+  @debug.debug_inspect(trie.lookup("-s"), content="Some(\"s\")")
+  @debug.debug_inspect(trie.lookup("--switch"), content="Some(\"switch\")")
 }
 ```
