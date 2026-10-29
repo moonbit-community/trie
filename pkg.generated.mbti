@@ -21,4 +21,3 @@ pub fn[A] Trie::of(FixedArray[(String, A)]) -> Self[A]
 // Type aliases
 
 // Traits
-
