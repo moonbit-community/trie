@@ -29,12 +29,12 @@ pub fn[A] Trie::insert(self : Self[A], path : String, value : A) -> Trie[A] {
 pub fn[A] Trie::add(self : Self[A], path : String, value : A) -> Trie[A] {
   fn aux(xs, trie) {
     match xs {
-      ([] : StringView) => Trie::{ ..trie, value: Some(value) }
+      ([] : StringView) => Trie::{ ..trie, value: Some(value), }
       [x, .. xs] => {
         let subtree = trie.forks
           .get(x)
-          .unwrap_or_else(() => { value: None, forks: @immut/sorted_map.new() })
-        { ..trie, forks: trie.forks.add(x, aux(xs, subtree)) }
+          .unwrap_or_else(() => { value: None, forks: @immut/sorted_map.new(), })
+        { ..trie, forks: trie.forks.add(x, aux(xs, subtree)), }
       }
     }
   }
@@ -45,12 +45,12 @@ pub fn[A] Trie::add(self : Self[A], path : String, value : A) -> Trie[A] {
 ///|
 #deprecated("Use Trie::empty instead")
 pub fn[A] empty() -> Trie[A] {
-  Trie::{ value: None, forks: @immut/sorted_map.new() }
+  Trie::{ value: None, forks: @immut/sorted_map.new(), }
 }
 
 ///|
 pub fn[A] Trie::empty() -> Trie[A] {
-  Trie::{ value: None, forks: @immut/sorted_map.new() }
+  Trie::{ value: None, forks: @immut/sorted_map.new(), }
 }
 
 ///|
