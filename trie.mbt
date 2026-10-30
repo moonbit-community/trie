@@ -7,7 +7,7 @@ struct Trie[A] {
 
 ///|
 pub fn[A] Trie::lookup(self : Self[A], path : String) -> A? {
-  for xs = path.view(), trie = self {
+  for xs = path[:], trie = self {
     match xs {
       [] => break trie.value
       [x, .. xs] =>
@@ -39,7 +39,7 @@ pub fn[A] Trie::add(self : Self[A], path : String, value : A) -> Trie[A] {
     }
   }
 
-  aux(path.view(), self)
+  aux(path[:], self)
 }
 
 ///|
